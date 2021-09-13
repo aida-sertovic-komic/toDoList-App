@@ -7,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewToDoItemComponent implements OnInit {
   toDoTask: string = '';
-  done: boolean = false;
-  id: Number = 0;
+  // done: boolean = false;
+  // id: Number = 0;
 
   ngOnInit(): void {}
 
   addTask(): void {
+    this.toDoTask = this.toDoTask;
     console.log(this.toDoTask);
   }
 }
