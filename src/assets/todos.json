@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "text": "Learn Angular",
+        "done": false
+    },
+    {
+        "id": 2,
+        "text": "Training",
+        "done": false
+    },
+    {
+        "id": 3,
+        "text": "Learn Bootstrap",
+        "done": false
+    },
+    {
+        "id": 4,
+        "text": "House cleaning",
+        "done": false
+    }
+]
