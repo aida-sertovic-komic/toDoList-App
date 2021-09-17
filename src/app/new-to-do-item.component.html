@@ -3,5 +3,7 @@
       <span class="input-group-text" id=""> To do: </span>
     </div>
     <input type="text" class="form-control" [(ngModel)]="toDoTask" />
-     <button  class="btn btn-primary" (click)="addTask()"> Add</button>
+    <span class="input-group-text" id=""> Date: </span>
+    <p-calendar appendTo="body" [showTime]="true" hourFormat="24" [(ngModel)]="date"></p-calendar>
+     <button  class="btn btn-primary" (click)="addTask()"> Add </button>
   </div>

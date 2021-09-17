@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ToDosService } from './todos.service';
+import { Component, Input, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'pm-new-to-do-item',
@@ -6,13 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-to-do-item.component.css'],
 })
 export class NewToDoItemComponent implements OnInit {
-  toDoTask: string = '';
+  toDoTask: String = '';
   done: boolean = false;
-  id: Number = 0;
+  id: number = 0;
+  maxId: number | any;
+  date: Date | undefined;
 
-  ngOnInit(): void {}
+  constructor(private ToDosService: ToDosService) {
+    this.ToDosService.biggestNumber.subscribe((data) => {
+      this.maxId = data;
+    });
+  }
+
+  ngOnInit(): void {
+   
+  }
 
   addTask(): void {
-    console.log(this.toDoTask);
+    const toDo = { id: this.maxId+1, text:this.toDoTask, done: false, date: this.date };
+    this.ToDosService.toDoObject.emit(toDo);
+    this.toDoTask = '';
+    console.log(toDo);
   }
+
 }

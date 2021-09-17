@@ -1,5 +1,6 @@
 export interface ToDos {
     id: number;
     text: string;
-    done: boolean;
+    done: boolean | string | undefined;
+    date: Date;
 }

@@ -1,3 +1,29 @@
-.table {
-    margin-top: 60px;
+input {
+    margin-left: 20px;
+    padding-left: 20px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border: 1px solid dodgerblue;
+}
+
+.pi-user-edit:before {
+    content: "\e98a";
+    padding-left: 13px;
+}
+
+.newText {
+    margin-left: 0px;
+    padding-left: 0px;
+    padding-top: 5px;
+    padding-bottom: px;
+    width: 150px;
+    border: 1px solid #a6a6a6;
+    
+}
+.checkbox {
+    margin-top: 15px;
+}
+
+.bg-red{
+    background-color: red ;
 }

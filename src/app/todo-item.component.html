@@ -1,18 +1,153 @@
+<!-- <div>
+  <input class="form-control" type="text" placeholder="Filter" [(ngModel)]="filterBy">
 <table class="table">
     <thead class="thead-blue">
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">TO DO</th>
-        <th scope="col">DONE</th>
+        <th scope="col"> ID <i class="fas fa-angle-up" (click)="sortById()"></i></th>
+        <th scope="col"><i class="fas fa-angle-down" (click)="sortByText()"></i> TO DO <i class="fas fa-angle-up" (click)="sortByTextZ()"></i></th>
+        <th scope="col"><i class="fas fa-angle-down" (click)="sortByNotDone()"></i> DONE </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of list">
-        <td>{{item.id}}</td>
-        <td>{{item.text}}</td>
-        <td>{{item.done}}</td>
+        <td> {{item.id}} </td>
+        <td>  {{item.text}} </td>
+        <td> {{item.done}} </td>
       </tr>
     </tbody>
   </table>
-  
-  
+</div>
+   -->
+<div class="container">
+  <p-table
+    #dt1
+    [value]="list"
+    responsiveLayout="scroll"
+    dataKey="id"
+    [globalFilterFields]="['text']"
+  >
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex">
+        <button
+          pButton
+          label="Clear"
+          class="p-button-outlined"
+          icon="pi pi-filter-slash"
+          (click)="clear(dt1)"
+        ></button>
+        <span class="p-input-icon-left p-ml-auto">
+          <input
+            class="primary"
+            pInputText
+            type="text"
+            (input)="applyFilterGlobal1($event, 'contains')"
+            placeholder="Search"
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="text">
+          TO DO <p-sortIcon field="text"></p-sortIcon>
+        </th>
+        <th pSortableColumn="done">
+          DONE <p-sortIcon field="text"></p-sortIcon>
+        </th>
+        <th [(ngModel)]="value">DATE</th>
+        <th>EDIT</th>
+        <th>DELETE</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td>{{ item.id }}</td>
+        <td [ngClass]="{ 'bg-red': !item.done && checkDate(item.date) }">
+          {{ item.text }}
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="item.done" />
+        </td>
+        <td>
+          <p-calendar
+            appendTo="body"
+            [(ngModel)]="item.date"
+            [showTime]="true"
+            hourFormat="24"
+          ></p-calendar>
+        </td>
+        <td>
+          <p-button
+            (click)="showBasicDialog(item)"
+            icon="pi pi-user-edit"
+            label="Edit"
+          ></p-button>
+
+          <!-- EDIT DIALOG -->
+          <p-dialog
+            header="Edit"
+            [(visible)]="displayBasic"
+            [style]="{ width: '50vw' }"
+            *ngIf="selectedTask"
+          >
+            <!-- table -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">TO DO</th>
+                  <th scope="col">DONE</th>
+                  <th scope="col">DATE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <input
+                      type="text"
+                      class="newText"
+                      [(ngModel)]="selectedTask.text"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      class="checkbox"
+                      [(ngModel)]="selectedTask.done"
+                    />
+                  </td>
+                  <td>
+                    <p-calendar
+                      appendTo="body"
+                      [(ngModel)]="selectedTask.date"
+                      [showTime]="true"
+                      hourFormat="24"
+                    ></p-calendar>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p-button
+              icon="pi pi-check"
+              label="Save"
+              styleClass="p-button-text"
+              (click)="saveEdit()"
+            ></p-button>
+          </p-dialog>
+        </td>
+        <td>
+          <p-button
+            icon="pi pi-times"
+            label="Delete"
+            (click)="confirm2(item.id)"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-confirmDialog
+    [style]="{ width: '50vw' }"
+    [baseZIndex]="10000"
+    rejectButtonStyleClass="p-button-outlined"
+  ></p-confirmDialog>
+</div>

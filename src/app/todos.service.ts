@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { ToDos } from './todos';
+import { EventEmitter } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,10 @@ import { ToDos } from './todos';
 export class ToDosService {
 
     private toDoUrl = 'assets/todos.json';
+    biggestNumber = new EventEmitter<number>();
+    toDoObject = new EventEmitter<any>();
+    filterText = new EventEmitter<String>();
+    
     constructor(private http: HttpClient) {}
 
     getList(): Observable<ToDos[]> {
